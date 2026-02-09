@@ -111,6 +111,10 @@ class IntroductionPage(QWidget):
             QMessageBox.warning(self, "Error", "Jangan dikosongkan ya..")
             return
         
+        if not isinstance(self.nama_input.text(), str):
+            QMessageBox.warning(self, "Error", "Nama harus string..")
+            return
+        
         if not all([self.umur_input.text().isdigit(), self.tinggi_input.text().isdigit(), self.berat_input.text().isdigit()]):
             QMessageBox.warning(self, "Error", "Umur, tinggi, dan berat badan harus angka ya..")
             return

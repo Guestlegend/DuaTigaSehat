@@ -29,7 +29,6 @@ class MacroCalculatorWindow(QWidget):
         layout = QVBoxLayout(content)
         layout.setSpacing(12)
 
-        # ===== TITLE =====
         title = QLabel("MACRO CALCULATOR")
         title.setFont(QFont(font_family, font_title_size, QFont.Bold))
         title.setAlignment(Qt.AlignCenter)
@@ -39,7 +38,7 @@ class MacroCalculatorWindow(QWidget):
         subtitle.setAlignment(Qt.AlignCenter)
         layout.addWidget(subtitle)
 
-        # ===== ACTIVITY LEVEL =====
+        # Activity
         act_group = QGroupBox("Activity Level")
         act_layout = QVBoxLayout()
 
@@ -56,7 +55,7 @@ class MacroCalculatorWindow(QWidget):
         act_group.setLayout(act_layout)
         layout.addWidget(act_group)
 
-        # ===== GOAL =====
+        # Goal
         goal_group = QGroupBox("Goal")
         goal_layout = QVBoxLayout()
 
@@ -71,18 +70,16 @@ class MacroCalculatorWindow(QWidget):
         goal_group.setLayout(goal_layout)
         layout.addWidget(goal_group)
 
-        # ===== CALCULATE BUTTON =====
         calc_btn = QPushButton("Calculate")
         calc_btn.clicked.connect(self.calculate_macro)
         layout.addWidget(calc_btn)
 
-        # ===== RESULT =====
+        # Result
         self.result_label = QLabel()
         self.result_label.setWordWrap(True)
         self.result_label.setFont(QFont(font_family, font_normal_size))
         layout.addWidget(self.result_label)
 
-        # ===== BUTTONS =====
         btn_layout = QHBoxLayout()
 
         back_btn = QPushButton("Back")
@@ -109,13 +106,12 @@ class MacroCalculatorWindow(QWidget):
         age = user_data["umur"]
         gender = user_data["gender"]
 
-        # ===== BMR =====
+        # BMR
         if gender == "Laki-Laki":
             bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5
         else:
             bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161
 
-        # ===== ACTIVITY FACTOR =====
         if self.act_sedentary.isChecked():
             tdee = bmr * 1.2
         elif self.act_light.isChecked():
@@ -125,7 +121,6 @@ class MacroCalculatorWindow(QWidget):
         else:
             tdee = bmr * 1.725
 
-        # ===== GOAL =====
         if self.goal_loss.isChecked():
             calories = tdee - 500
         elif self.goal_gain.isChecked():
@@ -136,7 +131,6 @@ class MacroCalculatorWindow(QWidget):
         calories = int(calories)
         kj = int(calories * 4.184)
 
-        # ===== MACRO SPLIT =====
         protein_g = int((0.25 * calories) / 4)
         carbs_g = int((0.50 * calories) / 4)
         fat_g = int((0.25 * calories) / 9)
@@ -144,7 +138,6 @@ class MacroCalculatorWindow(QWidget):
         sugar_max = int((0.10 * calories) / 4)
         satfat_max = int((0.10 * calories) / 9)
 
-        # ===== RESULT TEXT =====
         self.result_label.setText(f"""
 Protein
 {protein_g} grams/day
